@@ -1,0 +1,18 @@
+[project]
+name = "cred-link-intersphinx"
+version = "0.1.0"
+description = "A package for demonstrating an intersphinx credentials link"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[dependency-groups]
+dev = [
+    "nox>=2024.4.15",
+    {include-group = "docs"},
+]
+docs = [
+  "Sphinx>=5",
+  "sphinx-autobuild>=2025.8.25",
+  "sphinx_rtd_theme",
+  "zuul-sphinx>=0.8.0",
+]
