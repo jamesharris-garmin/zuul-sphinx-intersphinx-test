@@ -143,6 +143,8 @@ def install_uv_project(
 def zuul_sphinx_docs(session: nox.Session):
     "build zuul_sphinx documentation."
     session.install("nox")
+    if session.venv_backend != "uv":
+        session.install("uv")
     with session.chdir(ZUUL_SPHINX_DIR):
         session.run("nox", "-s", "docs", "-fb", "uv")
 
