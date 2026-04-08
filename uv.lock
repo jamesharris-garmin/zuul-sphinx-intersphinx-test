@@ -194,13 +194,13 @@ dev = [
     { name = "sphinx", specifier = ">=5" },
     { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
     { name = "sphinx-rtd-theme" },
-    { name = "zuul-sphinx", specifier = ">=0.8.0" },
+    { name = "zuul-sphinx", git = "https://review.opendev.org/zuul/zuul-sphinx?rev=refs%2Fchanges%2F25%2F982925%2F1" },
 ]
 docs = [
     { name = "sphinx", specifier = ">=5" },
     { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
     { name = "sphinx-rtd-theme" },
-    { name = "zuul-sphinx", specifier = ">=0.8.0" },
+    { name = "zuul-sphinx", git = "https://review.opendev.org/zuul/zuul-sphinx?rev=refs%2Fchanges%2F25%2F982925%2F1" },
 ]
 
 [[package]]
@@ -812,14 +812,10 @@ wheels = [
 
 [[package]]
 name = "zuul-sphinx"
-version = "0.8.0"
-source = { registry = "https://mirrors.garmin.com/pypi/simple/" }
+version = "0.8.1.dev1"
+source = { git = "https://review.opendev.org/zuul/zuul-sphinx?rev=refs%2Fchanges%2F25%2F982925%2F1#11055a576bbb8dd52260fc6479ae01cbaaea6215" }
 dependencies = [
     { name = "pbr" },
     { name = "pyyaml" },
     { name = "sphinx" },
-]
-sdist = { url = "https://mirrors.garmin.com/artifactory/api/pypi/pypi-proxy/packages/packages/29/69/2bf212a8d37fa7aeb60bbd45f14795013a4cbc7ee3fcdfabf730d539f200/zuul_sphinx-0.8.0.tar.gz", hash = "sha256:8bb8f0730f15b4fb5426d011101da45cf6c17c1e4fa56f0ed0d6d8539c48c4b7" }
-wheels = [
-    { url = "https://mirrors.garmin.com/artifactory/api/pypi/pypi-proxy/packages/packages/50/08/686c984380d17d71bdca7f6f81b4242cdb22f262fa803863837b92b6195f/zuul_sphinx-0.8.0-py3-none-any.whl", hash = "sha256:d0bbd2730e3a20abc686425deb835bf58e4fa0f89045931a0134a0ebe783acc3" },
 ]

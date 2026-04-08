@@ -14,5 +14,12 @@ docs = [
   "Sphinx>=5",
   "sphinx-autobuild>=2025.8.25",
   "sphinx_rtd_theme",
-  "zuul-sphinx>=0.8.0",
+  "zuul-sphinx",
 ]
+
+# Cool! you can directly inject gerrit review patches into UV's sources list.
+[tool.uv.sources]
+zuul-sphinx = {
+  git = "https://review.opendev.org/zuul/zuul-sphinx",
+  rev = "refs/changes/25/982925/1"
+}
