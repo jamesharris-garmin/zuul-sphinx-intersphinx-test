@@ -138,30 +138,7 @@ def install_uv_project(
             external=uv_external,
         )
 
-
-@nox.session(reuse_venv=True)
-def zuul_sphinx_docs(session: nox.Session):
-    "build zuul_sphinx documentation."
-    session.install("nox")
-    if session.venv_backend != "uv":
-        session.install("uv")
-    with session.chdir(ZUUL_SPHINX_DIR):
-        session.run("nox", "-s", "docs", "-fb", "uv")
-
-
-@nox.session(venv_backend=None)
-def start_docker_compose(session: nox.Session):
-    "start the zuul-sphinx webserver in the background"
-    session.run("docker", "compose", "up", "-d", external=True)
-
-
-@nox.session(venv_backend=None)
-def stop_docker_compose(session: nox.Session):
-    "build zuul_sphinx documentation."
-    session.run("docker", "compose", "down", external=True)
-
-
-@nox.session(requires=["zuul_sphinx_docs", "start_docker_compose"])
+@nox.session
 def docs(session: nox.Session):
     "Build sphinx documentation with case"
 
@@ -172,26 +149,21 @@ def docs(session: nox.Session):
     html_dir = output_dir / "_html"
     doctree_dir = output_dir / "_doctree"
 
-    start_docker_compose(session)
-
-    try:
-        session.run(
-            "sphinx-build",
-            "-E",
-            "-W",
-            # "-vvvv",
-            "-d",
-            str(doctree_dir.relative_to(PROJECT_ROOT)),
-            "-b",
-            "html",
-            str(SPHINX_SRC_DIR.relative_to(PROJECT_ROOT)),
-            str(html_dir.relative_to(PROJECT_ROOT)),
-        )
-    finally:
-        session.notify("stop_docker_compose")
+    session.run(
+        "sphinx-build",
+        "-E",
+        "-W",
+        # "-vvvv",
+        "-d",
+        str(doctree_dir.relative_to(PROJECT_ROOT)),
+        "-b",
+        "html",
+        str(SPHINX_SRC_DIR.relative_to(PROJECT_ROOT)),
+        str(html_dir.relative_to(PROJECT_ROOT)),
+    )
 
 
-@nox.session(name="doc-server", requires=["zuul_sphinx_docs", "start_docker_compose"])
+@nox.session(name="doc-server")
 def doc_server(session: nox.Session):
     "launch sphinx autobuild server"
 
@@ -200,16 +172,14 @@ def doc_server(session: nox.Session):
     output_dir = SPHINX_OUTPUT_DIR
 
     html_dir = output_dir / "_html"
+    doctree_dir = output_dir / "_doctree"
 
-    start_docker_compose(session)
-
-    try:
-        session.run(
-            "sphinx-autobuild",
-            "-a",
-            "-E",
-            str(SPHINX_SRC_DIR.relative_to(PROJECT_ROOT)),
-            str(html_dir.relative_to(PROJECT_ROOT)),
-        )
-    finally:
-        session.notify("stop_docker_compose")
+    session.run(
+        "sphinx-autobuild",
+        "-a",
+        "-d",
+        str(doctree_dir.relative_to(PROJECT_ROOT)),
+        "-E",
+        str(SPHINX_SRC_DIR.relative_to(PROJECT_ROOT)),
+        str(html_dir.relative_to(PROJECT_ROOT)),
+    )

@@ -34,7 +34,8 @@ extensions = [
 ]
 
 
-example_url = "http://Bob:hiccup@localhost:7999"
+# Documentation from the zuul build of https://review.opendev.org/c/zuul/zuul-sphinx/+/982925
+example_url = "https://da5b8ca8331041bce884-5f9169eacee10b8db2558d8a4c802669.ssl.cf1.rackcdn.com/zuul/6692e86b6d0e4a1f94dc70e35804c047/docs"  # /objects.inv-
 
 
 intersphinx_mapping = {
